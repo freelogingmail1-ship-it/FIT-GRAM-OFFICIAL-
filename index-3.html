@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2447F5">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>FIT GRAM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F5F9;--card:#fff;--ink:#101828;--mute:#667085;--line:#E4E7EC;--brand:#2447F5;--heart:#D92D56;--on:#16A34A;--chip:#E9EDF7}
+[data-theme=dark]{--bg:#0B0F1A;--card:#141A28;--ink:#EDF0F7;--mute:#98A2B3;--line:#242C3D;--brand:#5B7BFF;--heart:#FF5C7F;--chip:#1C2336}
+*{box-sizing:border-box;margin:0}
+body{font:16px/1.5 'Hind Siliguri',system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-top:env(safe-area-inset-top)}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+input,textarea{width:100%;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;outline:none;resize:none}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+[hidden]{display:none!important}
+#app{max-width:640px;margin:0 auto;min-height:100dvh;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+.logo{font-weight:700;font-style:italic;font-size:24px;letter-spacing:.02em}.logo b{color:var(--brand)}
+.top{position:sticky;top:env(safe-area-inset-top);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:var(--bg)}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:640px;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:6}
+.nav button{flex:1;height:56px;display:grid;place-items:center;color:var(--mute);position:relative}
+.nav .on{color:var(--brand)}
+svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ic{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;position:relative}
+.bd{position:absolute;top:2px;right:2px;min-width:18px;height:18px;border-radius:9px;background:var(--heart);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+.bd:empty{display:none}.bd.st{position:static}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:10px 12px;padding:12px}
+.row{display:flex;gap:10px;align-items:center}.row.end{justify-content:space-between;margin-top:8px}
+.grow{flex:1;min-width:0}.clip{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.muted,time,small{color:var(--mute);font-size:13px}
+.av{width:var(--s);height:var(--s);border-radius:50%;object-fit:cover;flex:none;display:inline-block;background:var(--chip)}
+.av.ph{display:inline-grid;place-items:center;font-weight:700;color:var(--brand);font-size:calc(var(--s)*.42)}
+.avw{position:relative;display:inline-block;flex:none}
+.dot{position:absolute;right:-1px;bottom:-1px;width:13px;height:13px;border-radius:50%;background:var(--line);border:2px solid var(--bg)}
+.dot.on{background:var(--on)}
+.btn{background:var(--brand);color:#fff;border-radius:999px;padding:11px 18px;font-weight:600;width:100%}
+.btn.sm{width:auto;padding:6px 16px;font-size:14px}
+.btn.ghost{background:var(--chip);color:var(--ink)}
+.btn.danger{background:transparent;color:var(--heart);border:1px solid var(--heart)}
+.btn:disabled{opacity:.6}
+.link{color:var(--brand);font-weight:600;padding:8px}
+.chip-btn{background:var(--chip);padding:6px 14px;border-radius:999px;font-size:14px;cursor:pointer}
+.post{padding:14px 16px;border-bottom:1px solid var(--line)}
+.who{display:flex;gap:10px;align-items:center;text-align:left;flex:1;min-width:0}
+.who b{display:block;line-height:1.2}
+.body{white-space:pre-wrap;word-break:break-word;margin:8px 0}
+.pimg{width:100%;max-height:480px;object-fit:cover;border-radius:12px;margin:8px 0;background:var(--chip);display:block}
+.acts{gap:6px;flex-wrap:wrap;margin-top:6px}
+.rx{display:inline-flex;gap:4px;align-items:center;padding:4px 11px;border-radius:999px;background:var(--chip);font-size:15px;min-height:34px}
+.rx span{font-size:13px;font-weight:600}
+.rx.on{background:var(--brand);color:#fff}
+.tabs{display:flex;margin:4px 12px 0;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;padding:10px;color:var(--mute);font-weight:600;border-bottom:3px solid transparent}
+.tabs .on{color:var(--ink);border-color:var(--brand)}
+.bar{display:flex;align-items:center;gap:6px;padding:4px 8px}.bar h2{font-size:18px}
+.item{display:flex;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.item.unread{background:var(--chip)}
+.empty{text-align:center;color:var(--mute);padding:36px 24px}.load{text-align:center;color:var(--mute);padding:24px}
+.cbar{position:sticky;bottom:calc(56px + env(safe-area-inset-bottom));display:flex;gap:8px;padding:10px 12px;background:var(--bg);border-top:1px solid var(--line)}
+.rhead{display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid var(--line)}
+#msgs{padding:12px;display:flex;flex-direction:column;gap:6px}
+.bub{max-width:78%;padding:8px 12px;border-radius:16px;background:var(--chip);align-self:flex-start;word-break:break-word;white-space:pre-wrap}
+.bub.me{align-self:flex-end;background:var(--brand);color:#fff}
+.bub time{display:block;font-size:11px;color:inherit;opacity:.7}
+.auth{padding:56px 24px;display:flex;flex-direction:column;gap:12px}
+.auth .logo{font-size:40px}.auth form{display:flex;flex-direction:column;gap:10px}
+.prof{padding:16px}.prof h2{font-size:20px;line-height:1.2}
+.stats{display:flex;gap:24px;margin:12px 0}.stats>*{text-align:left}.stats b{display:block;font-size:18px}
+.form{display:flex;flex-direction:column;gap:10px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--mute)}
+.seg{display:flex;gap:8px}.seg button{flex:1;padding:10px;border:1px solid var(--line);border-radius:12px}
+.seg .on{background:var(--brand);border-color:var(--brand);color:#fff}
+.pv{max-height:220px;border-radius:12px;margin-top:8px;width:100%;object-fit:cover}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;z-index:20;max-width:90%;text-align:center}
+.vb{width:17px;height:17px;vertical-align:-3px;margin-left:4px;stroke:none;display:inline-block;flex:none}
+.stories{display:flex;gap:12px;overflow-x:auto;padding:10px 14px 4px;scrollbar-width:none}
+.st{display:flex;flex-direction:column;align-items:center;gap:4px;width:64px;flex:none;cursor:pointer}
+.ring{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--brand)}
+.ring.add{border:2px dashed var(--mute);color:var(--brand);font-size:26px;font-weight:700}
+.st small{max-width:64px;text-align:center}
+select{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 10px;font:inherit;color:inherit;max-width:55%}
+#sv{position:fixed;inset:0;background:#000;z-index:30;display:flex;justify-content:center}
+.svb{position:relative;width:100%;max-width:480px;display:flex;flex-direction:column;color:#fff}
+.svh{position:relative;z-index:2;display:flex;gap:8px;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 12px 10px}
+.svh time{color:#ddd}.svh button{color:#fff;font-size:18px;padding:6px}
+.svb img.si{flex:1;min-height:0;width:100%;object-fit:contain}
+.svc{position:relative;z-index:2;padding:12px 16px calc(16px + env(safe-area-inset-bottom));text-align:center;min-height:56px}
+.svn{position:absolute;inset:0;z-index:1}
+.edit{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.edit .row{justify-content:flex-end}
+.acts .sp{flex:1}
+.vm{display:flex;align-items:center;gap:8px;min-width:160px;color:inherit}
+.vm .ps{display:none}.vm.on .ps{display:inline}.vm.on .pl{display:none}
+.wv{flex:1;height:14px;opacity:.55;background:repeating-linear-gradient(90deg,currentColor 0 2px,transparent 2px 5px)}
+.recdot{width:12px;height:12px;border-radius:50%;background:var(--heart);animation:blink 1s infinite;flex:none}
+@keyframes blink{50%{opacity:.25}}
+.cbar .ic{flex:none;font-size:20px}
+.sn{display:block;font-weight:600;font-size:12px;color:var(--brand)}.bub.me .sn{color:#fff}
+.gm{width:auto}
+.form label.pick{flex-direction:row;align-items:center;gap:10px;color:var(--ink);font-size:16px;padding:4px 0}
+.tag{background:var(--chip);border-radius:999px;padding:1px 8px;font-size:12px;margin-left:6px;font-weight:500}
+#se{position:fixed;inset:0;background:#000;z-index:40;display:flex;justify-content:center}
+.seb{width:100%;max-width:480px;height:100%;display:flex;flex-direction:column;color:#fff}
+.seh{display:flex;justify-content:space-between;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 12px 10px}
+.seh>button:first-child{color:#fff;font-size:20px;padding:6px 10px}
+.sest{flex:1;min-height:0;display:grid;place-items:center;padding:4px 8px}
+.stage{position:relative;display:inline-block;max-width:100%;line-height:0;overflow:hidden;border-radius:10px}
+.stage img{display:block;max-width:100%;max-height:calc(100dvh - 270px)}
+#seitems{position:absolute;inset:0;overflow:hidden}
+.sei{position:absolute;transform:translate(-50%,-50%);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;line-height:1;white-space:nowrap}
+.sei.txt{background:rgba(0,0,0,.55);color:#fff;padding:.3em .6em;border-radius:.5em;font-weight:700;line-height:1.25;text-align:center;white-space:normal;width:max-content;max-width:85%;overflow-wrap:anywhere}
+.sei.on{outline:2px dashed #fff;outline-offset:4px}
+.setools{padding:8px 12px calc(12px + env(safe-area-inset-bottom))}
+.setools input{background:#1c1c1e;border-color:#3a3a3c;color:#fff;margin-bottom:6px}
+.selbar{display:flex;gap:10px;justify-content:center;margin-bottom:8px}
+.selbar button{width:46px;height:36px;border-radius:12px;background:#333;color:#fff;font-size:20px}
+.emojis{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.emojis button{font-size:28px;flex:none;padding:2px 4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ================== 1) Put your Supabase details here ================== */
+const cfg = {
+  url: 'https://qbaauqdxmdlernwxyqzi.supabase.co',          // Project Settings -> API -> Project URL
+  key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiYWF1cWR4bWRsZXJud3h5cXppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMDQxOTgsImV4cCI6MjEwNzc4MDE5OH0.16letP8Zh6OoGjHDhvQn6MwQj7PeIA6LFEMgiEINcE0'      // Project Settings -> API -> anon public key
+};
+/* ====================================================================== */
+
+const sb = supabase.createClient(cfg.url, cfg.key);
+const app = document.getElementById('app');
+const PAGE = 10;
+const REACTS = { like:'👍', love:'❤️', fire:'🔥', strong:'💪' };
+const SEL = 'id,body,image_url,media_type,page_id,created_at,user_id,profiles!posts_user_fk(id,username,full_name,avatar_url,is_verified),pages(id,handle,name,avatar_url),reactions(user_id,kind),comments(count)';
+const PSEL = 'id,username,full_name,avatar_url,bio,is_verified';
+const BADGE = '<svg class="vb" viewBox="0 0 24 24" role="img" aria-label="Verified"><path fill="#1D9BF0" d="M23.25 12.00 L23.10 12.73 L22.68 13.41 L22.10 14.01 L21.49 14.54 L20.97 15.05 L20.64 15.58 L20.50 16.19 L20.51 16.91 L20.56 17.72 L20.55 18.56 L20.36 19.33 L19.95 19.95 L19.33 20.36 L18.56 20.55 L17.72 20.56 L16.91 20.51 L16.19 20.50 L15.58 20.64 L15.05 20.97 L14.54 21.49 L14.01 22.10 L13.41 22.68 L12.73 23.10 L12.00 23.25 L11.27 23.10 L10.59 22.68 L9.99 22.10 L9.46 21.49 L8.95 20.97 L8.42 20.64 L7.81 20.50 L7.09 20.51 L6.28 20.56 L5.44 20.55 L4.67 20.36 L4.05 19.95 L3.64 19.33 L3.45 18.56 L3.44 17.72 L3.49 16.91 L3.50 16.19 L3.36 15.58 L3.03 15.05 L2.51 14.54 L1.90 14.01 L1.32 13.41 L0.90 12.73 L0.75 12.00 L0.90 11.27 L1.32 10.59 L1.90 9.99 L2.51 9.46 L3.03 8.95 L3.36 8.42 L3.50 7.81 L3.49 7.09 L3.44 6.28 L3.45 5.44 L3.64 4.67 L4.05 4.05 L4.67 3.64 L5.44 3.45 L6.28 3.44 L7.09 3.49 L7.81 3.50 L8.42 3.36 L8.95 3.03 L9.46 2.51 L9.99 1.90 L10.59 1.32 L11.27 0.90 L12.00 0.75 L12.73 0.90 L13.41 1.32 L14.01 1.90 L14.54 2.51 L15.05 3.03 L15.58 3.36 L16.19 3.50 L16.91 3.49 L17.72 3.44 L18.56 3.45 L19.33 3.64 L19.95 4.05 L20.36 4.67 L20.55 5.44 L20.56 6.28 L20.51 7.09 L20.50 7.81 L20.64 8.42 L20.97 8.95 L21.49 9.46 L22.10 9.99 L22.68 10.59 L23.10 11.27z"/><path d="M7.7 12.4l3 2.9 5.8-6.2" stroke="#fff" fill="none" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const IC = {
+  home:'<path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  plus:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/>',
+  chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-5.8A8 8 0 1 1 21 12z"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
+  bell:'<path d="M18 16v-5a6 6 0 0 0-12 0v5l-2 2h16zM10 21h4"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>'
+};
+const svg = n => `<svg viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+
+/* ---------- state ---------- */
+let me=null, myProfile=null, myFollowing=new Set(), online=new Set(), myBlocked=new Set(), myPages=[], myPageFollowing=new Set(), storyGroups=[], sv=null, svt=null, searchTab='people', rec=null, audioEl=null, audioKey=null, se=null;
+let view={name:'home'}, stack=[], feedTab='all', feedPage=0, feedDone=false, feedBusy=false, io=null;
+const posts = new Map();
+
+/* ---------- helpers ---------- */
+const $ = (s,el=document)=>el.querySelector(s);
+const esc = s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let lang='en'; try{lang=localStorage.getItem('fg-lang')||'en'}catch(e){}
+const BN={
+  'Message':'মেসেজ',
+  'Posts':'পোস্ট',
+  'Name':'নাম',
+  'Messages':'মেসেজ',
+  'just now':'এইমাত্র',
+  '{n} min ago':'{n} মিনিট আগে',
+  '{n} h ago':'{n} ঘণ্টা আগে',
+  '{n} d ago':'{n} দিন আগে',
+  'reacted {r} to your post':'আপনার পোস্টে {r} দিয়েছেন',
+  'commented on your post':'আপনার পোস্টে কমেন্ট করেছেন',
+  'started following you':'আপনাকে ফলো করেছেন',
+  'An account with this email already exists':'এই ইমেইল দিয়ে আগেই অ্যাকাউন্ট খোলা হয়েছে',
+  'Too many wrong attempts. Try again in 10 minutes':'অনেকবার ভুল হয়েছে। ১০ মিনিট পরে আবার চেষ্টা করুন',
+  'This name is already taken':'এই নামটি আগেই নেওয়া হয়েছে',
+  'File is too large (max 50 MB)':'ফাইলটি অনেক বড় (সর্বোচ্চ ৫০ এমবি)',
+  'Something went wrong.':'কিছু একটা ভুল হয়েছে।',
+  'Something went wrong':'কিছু একটা ভুল হয়েছে',
+  'Following ✓':'ফলো করছেন',
+  'Follow':'ফলো করুন',
+  'Back':'পিছনে',
+  'Video can be 50 MB at most':'ভিডিও সর্বোচ্চ ৫০ এমবি হতে পারে',
+  'Workouts, friends and daily progress in one place.':'ওয়ার্কআউট, বন্ধু আর প্রতিদিনের অগ্রগতি এক জায়গায়।',
+  'Full name':'পুরো নাম',
+  'Username (a-z, 0-9, _)':'ইউজারনেম (a-z, 0-9, _)',
+  'Incorrect email or password':'ইমেইল বা পাসওয়ার্ড ঠিক নয়',
+  'Password reset link sent to your email':'ইমেইলে পাসওয়ার্ড রিসেটের লিংক পাঠানো হয়েছে',
+  'Click the link sent to your email to activate your account':'ইমেইলে পাঠানো লিংকে ক্লিক করে অ্যাকাউন্ট চালু করুন',
+  'Email':'ইমেইল',
+  'Password (min 6 characters)':'পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)',
+  'Forgot password?':'পাসওয়ার্ড ভুলে গেছেন?',
+  'Already have an account? Log in':'আগে থেকেই অ্যাকাউন্ট আছে? লগইন করুন',
+  'New here? Create an account':'নতুন? অ্যাকাউন্ট খুলুন',
+  'Create account':'অ্যাকাউন্ট খুলুন',
+  'Log in':'লগইন',
+  'Enter your email':'আপনার ইমেইল লিখুন',
+  'This username is already taken':'এই ইউজারনেমটি আগেই নেওয়া হয়েছে',
+  'Notifications':'নোটিফিকেশন',
+  'No notifications yet.':'কোনো নোটিফিকেশন নেই।',
+  'Post as this page from Home.':'হোম থেকে এই পেজের নামে পোস্ট করুন।',
+  'This is your page.':'এটি আপনার পেজ।',
+  'New post':'নতুন পোস্ট',
+  'New message received':'নতুন মেসেজ এসেছে',
+  'Home':'হোম',
+  'Search for someone and start a chat from their profile.':'সার্চ করে কারও প্রোফাইল থেকে মেসেজ শুরু করুন।',
+  'Find people or pages in Search and follow them.':'সার্চ থেকে মানুষ বা পেজ খুঁজে ফলো করুন।',
+  'Search':'সার্চ',
+  'Write a message…':'মেসেজ লিখুন…',
+  'Profile and settings':'প্রোফাইল ও সেটিংস',
+  'Profile':'প্রোফাইল',
+  'Online':'অনলাইন',
+  'Offline':'অফলাইন',
+  'Loading…':'লোড হচ্ছে…',
+  'Page, ':'পেজ, ',
+  'Edit':'এডিট',
+  'Delete':'মুছুন',
+  'Report sent. Thank you':'রিপোর্ট পাঠানো হয়েছে। ধন্যবাদ',
+  'Why are you reporting this? Write briefly':'কেন রিপোর্ট করছেন? সংক্ষেপে লিখুন',
+  'Report user':'রিপোর্ট করুন',
+  'Report':'রিপোর্ট',
+  'Be the first to comment.':'প্রথম কমেন্টটি আপনিই করুন।',
+  'Write a comment…':'কমেন্ট লিখুন…',
+  'Delete this comment?':'কমেন্টটি মুছবেন?',
+  'Comment':'কমেন্ট',
+  'How was your workout today?':'আজকের ওয়ার্কআউট কেমন ছিল?',
+  'Photo / Video':'ছবি / ভিডিও',
+  'Post as':'কার নামে পোস্ট',
+  'As myself':'আমার নামে',
+  '(page)':'(পেজ)',
+  'Publish':'পোস্ট করুন',
+  'Everyone':'সবার পোস্ট',
+  'Following':'ফলোয়িং',
+  'Followers':'ফলোয়ার্স',
+  'No posts from people you follow yet.':'ফলো করা কারও পোস্ট এখনো নেই।',
+  'No posts yet. Be the first to post!':'এখনো কোনো পোস্ট নেই। প্রথম পোস্টটি আপনিই করুন!',
+  'No posts on this page yet.':'এই পেজে এখনো কোনো পোস্ট নেই।',
+  'No posts yet.':'এখনো কোনো পোস্ট নেই।',
+  'No messages yet.':'এখনো কোনো মেসেজ নেই।',
+  'Nobody here yet.':'এখানে এখনো কেউ নেই।',
+  'Delete this post?':'পোস্টটি মুছে ফেলবেন?',
+  'A post cannot be empty':'পোস্ট খালি রাখা যাবে না',
+  'Write something or add a photo/video':'কিছু লিখুন বা ছবি/ভিডিও দিন',
+  'Post':'পোস্ট',
+  'Send':'পাঠান',
+  'Search name or @username':'নাম বা @ইউজারনেম খুঁজুন',
+  'People':'মানুষ',
+  'Create a new page':'নতুন পেজ খুলুন',
+  'New page':'নতুন পেজ',
+  'No pages found.':'কোনো পেজ পাওয়া যায়নি।',
+  'No one found.':'কাউকে খুঁজে পাওয়া যায়নি।',
+  'Get verified':'ভেরিফাইড নাও',
+  'Unblock':'আনব্লক করুন',
+  'If you block this person you will not see their posts and they cannot message you. Block?':'ব্লক করলে তার পোস্ট আপনি দেখবেন না এবং সে আপনাকে মেসেজ করতে পারবে না। ব্লক করবেন?',
+  'Block':'ব্লক করুন',
+  'Page: ':'পেজ: ',
+  'Enter a page name':'পেজের নাম দিন',
+  'Page name':'পেজের নাম',
+  'e.g. Fit Gram Gym':'যেমন: Fit Gram Gym',
+  'Page username':'পেজের ইউজারনেম',
+  'About the page':'পেজ সম্পর্কে',
+  'Page photo':'পেজের ছবি',
+  'Create page':'পেজ খুলুন',
+  'Pages':'পেজ',
+  'Your story':'আপনার স্টোরি',
+  'You: ':'আপনি: ',
+  'You':'আপনি',
+  'Close':'বন্ধ',
+  'Next story':'পরের স্টোরি',
+  'Blue verified is on':'ব্লু ভেরিফাইড চালু হয়েছে',
+  'Blue verified':'ব্লু ভেরিফাইড',
+  'Your account has the verified badge. Everyone can see it.':'আপনার অ্যাকাউন্টে ভেরিফাইড ব্যাজ চালু আছে। সবাই এটি দেখতে পায়।',
+  'Turn off verified':'ভেরিফাইড বন্ধ করুন',
+  'Verified turned off':'ভেরিফাইড বন্ধ হয়েছে',
+  'Verification code':'ভেরিফিকেশন কোড',
+  'Enter the code':'কোডটি লিখুন',
+  'Incorrect code':'কোডটি সঠিক নয়',
+  'Settings':'সেটিংস',
+  'Change photo':'ছবি বদলান',
+  'Bio':'বায়ো',
+  'Save changes':'সংরক্ষণ করুন',
+  'Saved':'সংরক্ষণ হয়েছে',
+  'Save':'সংরক্ষণ',
+  'Theme':'থিম',
+  'Light':'লাইট',
+  'Dark':'ডার্ক',
+  'Account':'অ্যাকাউন্ট',
+  'Log out':'লগআউট',
+  'Username: use only a-z, 0-9 and _ (3-20 characters)':'ইউজারনেমে শুধু a-z, 0-9 ও _ ব্যবহার করুন (৩-২০ অক্ষর)',
+  'Cancel':'বাতিল',
+  'Video selected: ':'ভিডিও বাছাই করা হয়েছে: ',
+  'Caption (optional)':'ক্যাপশন (ঐচ্ছিক)',
+  'Story posted':'স্টোরি দেওয়া হয়েছে',
+  'Enter a new password (min 6 characters)':'নতুন পাসওয়ার্ড দিন (কমপক্ষে ৬ অক্ষর)',
+  'Password changed':'পাসওয়ার্ড বদলানো হয়েছে',
+  'Language':'ভাষা',
+  'Voice message':'ভয়েস মেসেজ',
+  'Play voice message':'ভয়েস মেসেজ চালান',
+  'Record voice message':'ভয়েস মেসেজ রেকর্ড করুন',
+  'Recording…':'রেকর্ড হচ্ছে…',
+  'Voice recording is not supported on this browser':'এই ব্রাউজারে ভয়েস রেকর্ডিং চলে না',
+  'Microphone access was blocked. Allow it in your browser settings.':'মাইক্রোফোনের অনুমতি বন্ধ আছে। ব্রাউজারের সেটিংসে অনুমতি দিন।',
+  'Recording is too short':'রেকর্ডিং অনেক ছোট',
+  'New group':'নতুন গ্রুপ',
+  'Group name':'গ্রুপের নাম',
+  'Add people you follow':'যাদের ফলো করেন তাদের যোগ করুন',
+  'Follow some people first, or let them request to join.':'আগে কিছু মানুষকে ফলো করুন, অথবা তারা জয়েনের অনুরোধ পাঠাক।',
+  'Create group':'গ্রুপ খুলুন',
+  'Enter a group name':'গ্রুপের নাম দিন',
+  'Groups':'গ্রুপ',
+  'No groups found.':'কোনো গ্রুপ পাওয়া যায়নি।',
+  'Request to join':'জয়েনের অনুরোধ',
+  'Requested ✓':'অনুরোধ পাঠানো হয়েছে ✓',
+  'Open':'খুলুন',
+  'Request sent. The group admin has to approve it.':'অনুরোধ পাঠানো হয়েছে। গ্রুপ অ্যাডমিনকে এপ্রুভ করতে হবে।',
+  '{n} members':'{n} জন সদস্য',
+  'Members':'সদস্য',
+  'Join requests':'জয়েনের অনুরোধ',
+  'Approve':'এপ্রুভ',
+  'Reject':'প্রত্যাখ্যান',
+  'Remove':'সরান',
+  'Add':'যোগ করুন',
+  'Add people':'মানুষ যোগ করুন',
+  'Admin':'অ্যাডমিন',
+  'Leave group':'গ্রুপ ছাড়ুন',
+  'Delete group':'গ্রুপ মুছুন',
+  'Leave this group?':'গ্রুপটি ছাড়বেন?',
+  'Delete this group for everyone?':'সবার জন্য গ্রুপটি মুছবেন?',
+  'Remove this member?':'এই সদস্যকে সরাবেন?',
+  'New group message':'নতুন গ্রুপ মেসেজ',
+  'wants to join your group {g}':'আপনার গ্রুপ {g}-এ জয়েন করতে চান',
+  'approved your request to join {g}':'{g} গ্রুপে আপনার জয়েনের অনুরোধ এপ্রুভ করেছেন',
+  'New story':'নতুন স্টোরি',
+  'Share story':'স্টোরি দিন',
+  'Add a caption…':'ক্যাপশন লিখুন…',
+  'Smaller':'ছোট',
+  'Bigger':'বড়'
+};
+const L=(k,v)=>{let x=(lang==='bn'&&BN[k])||k; if(v)for(const n in v)x=x.split('{'+n+'}').join(v[n]); return x;};
+const LOC=()=>lang==='bn'?'bn-BD':'en-US';
+const saveLang=()=>{try{localStorage.setItem('fg-lang',lang)}catch(e){} document.documentElement.lang=lang;};
+const bn = n=>Number(n).toLocaleString(LOC());
+const nm = p=>esc(p?.full_name||p?.name||p?.username||'')+(p?.is_verified?BADGE:'');
+const errMsg = e=>{const m=e?.message||'';
+  if(/already registered/i.test(m))return L('An account with this email already exists');
+  if(/too_many_attempts/.test(m))return L('Too many wrong attempts. Try again in 10 minutes');
+  if(/duplicate key/i.test(m))return L('This name is already taken');
+  if(/exceed|too large|payload/i.test(m))return L('File is too large (max 50 MB)');
+  return m||L('Something went wrong');};
+const ok = r=>{ if(r.error) throw r.error; return r; };
+function ago(t0){const s=(Date.now()-new Date(t0))/1000;
+  if(s<60)return L('just now'); if(s<3600)return L('{n} min ago',{n:bn(Math.floor(s/60))});
+  if(s<86400)return L('{n} h ago',{n:bn(Math.floor(s/3600))}); if(s<604800)return L('{n} d ago',{n:bn(Math.floor(s/86400))});
+  return new Date(t0).toLocaleDateString(LOC());}
+function toast(m){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),2800);}
+const av = (p,s=40)=> p?.avatar_url
+  ? `<img class="av" style="--s:${s}px" src="${esc(p.avatar_url)}" alt="">`
+  : `<span class="av ph" style="--s:${s}px">${esc((p?.full_name||p?.name||p?.username||'?').trim().charAt(0).toUpperCase())}</span>`;
+const avo = (p,s=44)=>`<span class="avw">${av(p,s)}<i class="dot ${online.has(p.id)?'on':''}" data-dot="${p.id}"></i></span>`;
+const followBtn=(id,f)=>`<button class="btn sm ${f?'ghost':''}" data-a="follow" data-id="${id}" data-f="${f?1:0}">${f?L('Following ✓'):L('Follow')}</button>`;
+const pfollowBtn=(id,f)=>`<button class="btn sm ${f?'ghost':''}" data-a="pfollow" data-id="${id}" data-f="${f?1:0}">${f?L('Following ✓'):L('Follow')}</button>`;
+const pageRow=g=>`<div class="item"><button class="who" data-a="page" data-id="${g.id}">${av(g,44)}<span class="grow"><b>${esc(g.name)}</b><small class="clip">@${esc(g.handle)}</small></span></button>${g.owner_id===me.id?'':pfollowBtn(g.id,myPageFollowing.has(g.id))}</div>`;
+const reqBtn=(id,st)=>st==='active'?`<button class="btn sm ghost" data-a="group" data-id="${id}">${L('Open')}</button>`
+  :st==='pending'?`<button class="btn sm ghost" data-a="cancelreq" data-id="${id}">${L('Requested ✓')}</button>`
+  :`<button class="btn sm" data-a="joingroup" data-id="${id}">${L('Request to join')}</button>`;
+const backBar=t=>`<div class="bar"><button class="ic" data-a="back" aria-label="${L('Back')}">${svg('back')}</button><h2>${esc(t)}</h2></div>`;
+
+async function shrink(file,max){
+  const bmp=await createImageBitmap(file); const k=Math.min(1,max/Math.max(bmp.width,bmp.height));
+  const c=document.createElement('canvas'); c.width=Math.round(bmp.width*k); c.height=Math.round(bmp.height*k);
+  c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+  return new Promise(r=>c.toBlob(r,'image/jpeg',.85));
+}
+async function upload(bucket,file){
+  const vid=file.type.startsWith('video/');
+  if(vid&&file.size>50*1024*1024)throw new Error(L('Video can be 50 MB at most'));
+  const body=vid?file:await shrink(file,bucket==='avatars'?512:1280);
+  const ext=vid?((file.name.split('.').pop()||'mp4').toLowerCase().replace(/[^a-z0-9]/g,'')||'mp4'):'jpg';
+  const path=`${me.id}/${Date.now()}.${ext}`;
+  ok(await sb.storage.from(bucket).upload(path,body,{contentType:vid?file.type:'image/jpeg'}));
+  return sb.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+}
+
+/* ---------- theme ---------- */
+function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem('fg-theme',t)}catch(e){}}
+document.documentElement.lang=lang;
+try{setTheme(localStorage.getItem('fg-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))}catch(e){}
+
+/* ================== AUTH ================== */
+function authScreen(mode='login'){
+  const su=mode==='signup';
+  app.innerHTML=`<div class="auth"><div class="logo">FIT<b>GRAM</b></div>
+  <p class="muted">${L('Workouts, friends and daily progress in one place.')}</p>
+  <form id="af">
+    ${su?`<input name="full_name" placeholder="${L('Full name')}" required maxlength="50">
+    <input name="username" placeholder="${L('Username (a-z, 0-9, _)')}" required pattern="[a-zA-Z0-9_]{3,20}" autocapitalize="none">`:''}
+    <input name="email" type="email" placeholder="${L('Email')}" required autocapitalize="none">
+    <input name="password" type="password" placeholder="${L('Password (min 6 characters)')}" minlength="6" required>
+    <button class="btn" type="submit">${su?L('Create account'):L('Log in')}</button>
+  </form>
+  ${su?'':`<button class="link" id="fp">${L('Forgot password?')}</button>`}
+  <button class="link" id="lg">${lang==='en'?'বাংলা':'English'}</button>
+  <button class="link" id="sw">${su?L('Already have an account? Log in'):L('New here? Create an account')}</button></div>`;
+  $('#sw').onclick=()=>authScreen(su?'login':'signup');
+  $('#lg').onclick=()=>{lang=lang==='en'?'bn':'en';saveLang();authScreen(mode);};
+  if($('#fp'))$('#fp').onclick=async()=>{
+    const em=(prompt(L('Enter your email'))||'').trim(); if(!em)return;
+    const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});
+    toast(error?errMsg(error):L('Password reset link sent to your email'));
+  };
+  $('#af').onsubmit=async e=>{
+    e.preventDefault(); const f=Object.fromEntries(new FormData(e.target)); const b=$('#af button'); b.disabled=true;
+    try{
+      if(su){
+        const u=f.username.toLowerCase();
+        const {data:ex}=await sb.from('profiles').select('id').eq('username',u).maybeSingle();
+        if(ex) throw new Error(L('This username is already taken'));
+        const {data,error}=await sb.auth.signUp({email:f.email,password:f.password,options:{data:{username:u,full_name:f.full_name.trim()}}});
+        if(error) throw error;
+        if(!data.session){toast(L('Click the link sent to your email to activate your account'));}
+      } else {
+        const {error}=await sb.auth.signInWithPassword({email:f.email,password:f.password});
+        if(error) throw new Error(L('Incorrect email or password'));
+      }
+    }catch(err){toast(errMsg(err))}
+    b.disabled=false;
+  };
+}
+
+/* ================== BOOT / SHELL ================== */
+function shell(){
+  app.innerHTML=`<header class="top"><div class="logo">FIT<b>GRAM</b></div>
+    <button class="ic" data-a="notifs" aria-label="${L('Notifications')}">${svg('bell')}<span class="bd" id="bn"></span></button></header>
+    <main id="main"></main>
+    <nav class="nav">
+      <button data-a="tab" data-k="home" aria-label="${L('Home')}">${svg('home')}</button>
+      <button data-a="tab" data-k="search" aria-label="${L('Search')}">${svg('search')}</button>
+      <button data-a="tab" data-k="compose" aria-label="${L('New post')}">${svg('plus')}</button>
+      <button data-a="tab" data-k="chats" aria-label="${L('Messages')}">${svg('chat')}<span class="bd" id="bm"></span></button>
+      <button data-a="tab" data-k="profile" aria-label="${L('Profile')}">${svg('user')}</button>
+    </nav>`;
+}
+async function boot(user){
+  me=user; stack=[]; view={name:'home'};
+  const {data}=await sb.from('profiles').select('*').eq('id',me.id).single(); myProfile=data;
+  const f=await sb.from('follows').select('following_id').eq('follower_id',me.id);
+  myFollowing=new Set((f.data||[]).map(x=>x.following_id));
+  const [bl,mp,pf]=await Promise.all([
+    sb.from('blocks').select('blocked_id').eq('blocker_id',me.id),
+    sb.from('pages').select('id,name,handle,avatar_url').eq('owner_id',me.id),
+    sb.from('page_follows').select('page_id').eq('user_id',me.id)]);
+  myBlocked=new Set((bl.data||[]).map(x=>x.blocked_id)); myPages=mp.data||[]; myPageFollowing=new Set((pf.data||[]).map(x=>x.page_id));
+  shell();
+  startRealtime(); refreshBadges(); render();
+}
+function setLang(l){lang=l;saveLang();if(me){shell();refreshBadges();render();}else authScreen();}
+function cleanup(){closeStory();myBlocked=new Set();myPages=[];myPageFollowing=new Set();me=null;myProfile=null;stack=[];online=new Set();posts.clear();sb.removeAllChannels();if(io)io.disconnect();}
+
+function startRealtime(){
+  sb.channel('db-'+me.id)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`receiver_id=eq.${me.id}`},({new:x})=>{
+      if(view.name==='room'&&view.id===x.sender_id){addBubble(x);markRead(x.sender_id);}
+      else{toast(L('New message received')); if(view.name==='chats')render();}
+      refreshBadges();
+    })
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'group_id=gt.0'},async({new:x})=>{
+      if(x.sender_id===me.id)return;
+      if(view.name==='group'&&view.id===x.group_id){
+        if(!gProfiles[x.sender_id]){const r=await sb.from('profiles').select(PSEL).eq('id',x.sender_id).single(); if(r.data)gProfiles[x.sender_id]=r.data;}
+        addBubble(x); sb.rpc('mark_group_read',{gid:x.group_id}).then(()=>refreshBadges());
+      }else{toast(L('New group message')); if(view.name==='chats')render();}
+      refreshBadges();
+    })
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'notifications',filter:`user_id=eq.${me.id}`},()=>{refreshBadges(); if(view.name==='notifs')render();})
+    .subscribe();
+  const pc=sb.channel('presence:fitgram',{config:{presence:{key:me.id}}});
+  pc.on('presence',{event:'sync'},()=>{online=new Set(Object.keys(pc.presenceState())); paintOnline();})
+    .subscribe(async s=>{if(s==='SUBSCRIBED')await pc.track({at:Date.now()});});
+}
+function paintOnline(){
+  document.querySelectorAll('[data-dot]').forEach(d=>d.classList.toggle('on',online.has(d.dataset.dot)));
+  document.querySelectorAll('[data-st]').forEach(d=>d.textContent=online.has(d.dataset.st)?L('Online'):L('Offline'));
+}
+const setBd=(s,n)=>{const e=$(s);if(e)e.textContent=n?bn(n>99?99:n):''};
+async function refreshBadges(){
+  const [a,b,c]=await Promise.all([
+    sb.from('notifications').select('*',{count:'exact',head:true}).eq('is_read',false),
+    sb.from('messages').select('*',{count:'exact',head:true}).eq('receiver_id',me.id).is('read_at',null),
+    sb.rpc('my_group_unread')]);
+  const gu=(c.data||[]).reduce((n,x)=>n+Number(x.n),0);
+  setBd('#bn',a.count); setBd('#bm',(b.count||0)+gu);
+}
+
+/* ================== ROUTER ================== */
+const views={page:vPage,newpage:vNewPage,home:vHome,search:vSearch,chats:vChats,room:vRoom,notifs:vNotifs,profile:vProfile,post:vPost,people:vPeople,settings:vSettings,group:vGroup,groupinfo:vGroupInfo,newgroup:vNewGroup};
+async function render(){
+  const m=$('#main'); if(!m)return;
+  if(rec)abortRec();
+  if(io){io.disconnect();io=null;}
+  m.innerHTML=`<div class="load">${L('Loading…')}</div>`;
+  const tab={home:'home',search:'search',page:'search',newpage:'search',chats:'chats',room:'chats',group:'chats',groupinfo:'chats',newgroup:'chats'}[view.name]||(view.name==='profile'&&(!view.id||view.id===me.id)?'profile':'');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===tab));
+  try{ await views[view.name](m,view); }
+  catch(e){console.error(e);m.innerHTML=`<div class="empty">${L('Something went wrong.')}<br>${esc(e.message||'')}</div>`;}
+  window.scrollTo(0,0);
+}
+function go(name,p={}){stack.push(view);view={name,...p};history.pushState(null,'');render();}
+window.addEventListener('popstate',()=>{if(me&&stack.length){view=stack.pop();render();}});
+
+/* ================== POSTS ================== */
+function postCard(p){
+  const pg=p.pages, pr=p.profiles||{}, rs=p.reactions||[], counts={}, mineP=p.user_id===me.id;
+  rs.forEach(r=>counts[r.kind]=(counts[r.kind]||0)+1);
+  const mine=rs.find(r=>r.user_id===me.id)?.kind, cc=p.comments?.[0]?.count||0;
+  const head=pg?`<button class="who" data-a="page" data-id="${pg.id}">${av(pg,42)}<span><b>${esc(pg.name)}</b><small>${L('Page, ')}@${esc(pg.handle)}</small></span></button>`
+    :`<button class="who" data-a="profile" data-id="${pr.id}">${av(pr,42)}<span><b>${nm(pr)}</b><small>@${esc(pr.username)}</small></span></button>`;
+  const media=p.image_url?(p.media_type==='video'?`<video class="pimg" controls playsinline preload="metadata" src="${esc(p.image_url)}"></video>`:`<img class="pimg" loading="lazy" src="${esc(p.image_url)}" alt="">`):'';
+  return `<article class="post" id="p${p.id}">
+    <div class="row">${head}<time>${ago(p.created_at)}</time>
+      ${mineP?`<button class="ic" data-a="editpost" data-id="${p.id}" aria-label="${L('Edit')}">✏️</button><button class="ic" data-a="delpost" data-id="${p.id}" aria-label="${L('Delete')}">🗑️</button>`
+      :`<button class="ic" data-a="report" data-k="post" data-id="${p.id}" aria-label="${L('Report')}">🚩</button>`}</div>
+    <div id="pt${p.id}">${p.body?`<p class="body" data-a="open" data-id="${p.id}">${esc(p.body)}</p>`:''}</div>
+    ${media}
+    <div class="row acts">${Object.entries(REACTS).map(([k,e])=>
+      `<button class="rx ${mine===k?'on':''}" data-a="react" data-id="${p.id}" data-k="${k}" aria-label="${k}">${e}<span>${counts[k]?bn(counts[k]):''}</span></button>`).join('')}
+      <button class="rx" data-a="open" data-id="${p.id}" aria-label="${L('Comment')}">💬<span>${cc?bn(cc):''}</span></button></div>
+  </article>`;
+}
+const repaint=p=>{const el=$('#p'+p.id);if(el)el.outerHTML=postCard(p);};
+
+const composer=()=>`<section class="card"><div class="row" style="align-items:flex-start">${av(myProfile,40)}
+  <textarea id="pb" rows="2" maxlength="1000" placeholder="${L('How was your workout today?')}"></textarea></div>
+  <img id="pv" class="pv" alt="" hidden><div id="pvt" class="muted" hidden></div>
+  <div class="row end"><label class="chip-btn">📷 ${L('Photo / Video')}<input id="pf" type="file" accept="image/*,video/*" hidden></label>
+  ${myPages.length?`<select id="pas" aria-label="${L('Post as')}"><option value="">${L('As myself')}</option>${myPages.map(g=>`<option value="${g.id}">${esc(g.name)} ${L('(page)')}</option>`).join('')}</select>`:''}
+  <button class="btn sm" data-a="publish">${L('Publish')}</button></div></section>`;
+
+async function vHome(m){
+  m.innerHTML=`<div id="stories" class="stories"></div>${composer()}<div class="tabs"><button data-a="feedtab" data-k="all" class="${feedTab==='all'?'on':''}">${L('Everyone')}</button>
+    <button data-a="feedtab" data-k="following" class="${feedTab==='following'?'on':''}">${L('Following')}</button></div>
+    <div id="fe"></div><div id="feed"></div><div id="more" class="load"></div>`;
+  loadStories();
+  feedPage=0; feedDone=false; feedBusy=false;
+  await loadFeed();
+  io=new IntersectionObserver(es=>{if(es[0].isIntersecting)loadFeed();},{rootMargin:'400px'});
+  io.observe($('#more'));
+}
+async function loadFeed(){
+  if(feedDone||feedBusy||!$('#feed'))return; feedBusy=true;
+  try{
+    let q=sb.from('posts').select(SEL).order('created_at',{ascending:false}).range(feedPage*PAGE,feedPage*PAGE+PAGE-1);
+    if(feedTab==='following'){
+      const ids=[...myFollowing], pids=[...myPageFollowing], parts=[];
+      if(ids.length)parts.push(`and(user_id.in.(${ids.join(',')}),page_id.is.null)`);
+      if(pids.length)parts.push(`page_id.in.(${pids.join(',')})`);
+      if(!parts.length){feedDone=true;$('#fe').innerHTML=`<div class="empty">${L('No posts from people you follow yet.')}<br>${L('Find people or pages in Search and follow them.')}</div>`;$('#more').textContent='';return;}
+      q=q.or(parts.join(','));
+    }
+    const {data:raw}=ok(await q); const data=raw.filter(p=>!myBlocked.has(p.user_id));
+    data.forEach(p=>posts.set(p.id,p));
+    $('#feed')?.insertAdjacentHTML('beforeend',data.map(postCard).join(''));
+    if(raw.length<PAGE){feedDone=true;$('#more').textContent=(feedPage===0&&!data.length)?L('No posts yet. Be the first to post!'):'';}
+    feedPage++;
+  }finally{feedBusy=false;}
+}
+
+async function vPost(m,v){
+  const p=ok(await sb.from('posts').select(SEL).eq('id',v.id).single()).data; posts.set(p.id,p);
+  const cs=ok(await sb.from('comments').select('id,body,created_at,user_id,post_id,profiles!comments_user_fk(id,username,full_name,avatar_url,is_verified)').eq('post_id',v.id).order('created_at')).data;
+  m.innerHTML=`${backBar(L('Post'))}${postCard(p)}<div id="cl">${cs.map(commentRow).join('')||`<div class="empty" id="ce">${L('Be the first to comment.')}</div>`}</div>
+    <div class="cbar"><input id="ci" placeholder="${L('Write a comment…')}" maxlength="500"><button class="btn sm" data-a="comment" data-id="${p.id}">${L('Send')}</button></div>`;
+}
+const commentRow=c=>`<div class="item" id="c${c.id}" style="align-items:flex-start"><button data-a="profile" data-id="${c.profiles.id}">${av(c.profiles,34)}</button>
+  <div class="grow"><b>${nm(c.profiles)}</b> <time>${ago(c.created_at)}</time><p class="body" style="margin:2px 0 0">${esc(c.body)}</p></div>${c.user_id===me.id?`<button class="ic" data-a="delcomment" data-id="${c.id}" data-p="${c.post_id||''}" aria-label="${L('Delete')}">🗑️</button>`:''}</div>`;
+
+/* ================== PEOPLE / SEARCH / PROFILE ================== */
+const personRow=p=>`<div class="item"><button class="who" data-a="profile" data-id="${p.id}">${avo(p,44)}<span class="grow"><b>${nm(p)}</b><small class="clip">@${esc(p.username)}</small></span></button>${p.id===me.id?'':followBtn(p.id,myFollowing.has(p.id))}</div>`;
+
+async function vSearch(m){
+  m.innerHTML=`<div style="padding:8px 12px"><input id="sq" placeholder="${L('Search name or @username')}" autocomplete="off"></div>
+    <div class="tabs"><button data-a="stab" data-k="people" class="${searchTab==='people'?'on':''}">${L('People')}</button><button data-a="stab" data-k="pages" class="${searchTab==='pages'?'on':''}">${L('Pages')}</button><button data-a="stab" data-k="groups" class="${searchTab==='groups'?'on':''}">${L('Groups')}</button></div><div id="sr"></div>`;
+  let t; $('#sq').oninput=e=>{clearTimeout(t);t=setTimeout(()=>doSearch(e.target.value.trim()),300);};
+  await doSearch('');
+}
+async function doSearch(q){
+  const s=q.replace(/^@/,'').replace(/[%,()]/g,''), box=$('#sr');
+  if(searchTab==='groups'){
+    let r=sb.from('chat_groups').select('id,name,owner_id').limit(30);
+    r=s?r.ilike('name',`%${s}%`):r.order('created_at',{ascending:false});
+    const [gr,mr]=await Promise.all([r,sb.from('group_members').select('group_id,status').eq('user_id',me.id)]);
+    const st=new Map((ok(mr).data||[]).map(x=>[x.group_id,x.status])); if(!$('#sr'))return;
+    box.innerHTML=`<div style="padding:10px 12px"><button class="btn ghost sm" data-a="newgroup">＋ ${L('New group')}</button></div>`
+      +(ok(gr).data.map(g=>`<div class="item">${av({full_name:g.name},44)}<span class="grow"><b>${esc(g.name)}</b></span>${reqBtn(g.id,st.get(g.id)||null)}</div>`).join('')||`<div class="empty">${L('No groups found.')}</div>`);
+    return;
+  }
+  if(searchTab==='pages'){
+    let r=sb.from('pages').select('id,owner_id,handle,name,about,avatar_url').limit(30);
+    r=s?r.or(`handle.ilike.%${s}%,name.ilike.%${s}%`):r.order('created_at',{ascending:false});
+    const {data}=ok(await r); if(!$('#sr'))return;
+    box.innerHTML=`<div style="padding:10px 12px"><button class="btn ghost sm" data-a="newpage">＋ ${L('Create a new page')}</button></div>`+(data.map(pageRow).join('')||`<div class="empty">${L('No pages found.')}</div>`);
+    return;
+  }
+  let r=sb.from('profiles').select(PSEL).limit(30);
+  if(s)r=r.or(`username.ilike.%${s}%,full_name.ilike.%${s}%`); else r=r.neq('id',me.id).order('created_at',{ascending:false});
+  const data=ok(await r).data.filter(p=>!myBlocked.has(p.id)); if(!$('#sr'))return;
+  box.innerHTML=data.length?data.map(personRow).join(''):`<div class="empty">${L('No one found.')}</div>`;
+}
+
+async function vProfile(m,v){
+  const id=v.id||me.id, isMe=id===me.id, blocked=myBlocked.has(id);
+  const cnt=col=>sb.from('follows').select('*',{count:'exact',head:true}).eq(col,id);
+  const [pr,fo,fi,pc,ps,pgs]=await Promise.all([
+    sb.from('profiles').select('*').eq('id',id).single(), cnt('following_id'), cnt('follower_id'),
+    sb.from('posts').select('*',{count:'exact',head:true}).eq('user_id',id).is('page_id',null),
+    sb.from('posts').select(SEL).eq('user_id',id).is('page_id',null).order('created_at',{ascending:false}).limit(30),
+    sb.from('pages').select('id,name').eq('owner_id',id)]);
+  const p=ok(pr).data, list=ok(ps).data, owned=pgs.data||[]; list.forEach(x=>posts.set(x.id,x));
+  const actions=isMe?`<button class="btn ghost sm" data-a="settings">${L('Profile and settings')}</button>${p.is_verified?'':`<button class="btn sm" data-a="settings">${L('Get verified')}</button>`}`
+    :blocked?`<button class="btn ghost sm" data-a="block" data-id="${id}" data-b="0">${L('Unblock')}</button>`
+    :followBtn(id,myFollowing.has(id))+`<button class="btn ghost sm" data-a="chat" data-id="${id}">${L('Message')}</button>`;
+  m.innerHTML=`${(!isMe||stack.length)?backBar('@'+p.username):''}<section class="prof">
+    <div class="row">${avo(p,76)}<div class="grow"><h2>${nm(p)}</h2><div class="muted">@${esc(p.username)}</div></div></div>
+    ${p.bio?`<p class="body">${esc(p.bio)}</p>`:''}
+    ${owned.length?`<div class="row" style="flex-wrap:wrap;margin-top:6px">${owned.map(g=>`<button class="chip-btn" data-a="page" data-id="${g.id}">${L('Page: ')}${esc(g.name)}</button>`).join('')}</div>`:''}
+    <div class="stats"><div><b>${bn(pc.count||0)}</b><span class="muted">${L('Posts')}</span></div>
+      <button data-a="people" data-id="${id}" data-mode="followers"><b>${bn(fo.count||0)}</b><span class="muted">${L('Followers')}</span></button>
+      <button data-a="people" data-id="${id}" data-mode="following"><b>${bn(fi.count||0)}</b><span class="muted">${L('Following')}</span></button></div>
+    <div class="row" style="flex-wrap:wrap">${actions}</div>
+    ${isMe?'':`<div class="row">${blocked?'':`<button class="link" data-a="block" data-id="${id}" data-b="1">${L('Block')}</button>`}<button class="link" data-a="report" data-k="user" data-id="${id}">${L('Report user')}</button></div>`}</section>
+    <div id="feed">${list.map(postCard).join('')||`<div class="empty">${L('No posts yet.')}</div>`}</div>`;
+}
+
+/* ================== PAGES ================== */
+async function vPage(m,v){
+  const pg=ok(await sb.from('pages').select('*').eq('id',v.id).single()).data;
+  const [fc,ps]=await Promise.all([
+    sb.from('page_follows').select('*',{count:'exact',head:true}).eq('page_id',pg.id),
+    sb.from('posts').select(SEL).eq('page_id',pg.id).order('created_at',{ascending:false}).limit(30)]);
+  const list=ok(ps).data; list.forEach(x=>posts.set(x.id,x));
+  m.innerHTML=`${backBar('@'+pg.handle)}<section class="prof"><div class="row">${av(pg,76)}<div class="grow"><h2>${esc(pg.name)}</h2><div class="muted">@${esc(pg.handle)}</div></div></div>
+    ${pg.about?`<p class="body">${esc(pg.about)}</p>`:''}
+    <div class="stats"><div><b>${bn(fc.count||0)}</b><span class="muted">${L('Followers')}</span></div></div>
+    <div class="row">${pg.owner_id===me.id?`<span class="muted">${L('This is your page.')} ${L('Post as this page from Home.')}</span>`:pfollowBtn(pg.id,myPageFollowing.has(pg.id))}</div></section>
+    <div id="feed">${list.map(postCard).join('')||`<div class="empty">${L('No posts on this page yet.')}</div>`}</div>`;
+}
+async function vNewPage(m){
+  m.innerHTML=`${backBar(L('New page'))}<section class="card form">
+    <label>${L('Page name')}<input id="pgname" maxlength="50" placeholder="${L('e.g. Fit Gram Gym')}"></label>
+    <label>${L('Page username')}<input id="pghandle" maxlength="20" autocapitalize="none" placeholder="a-z, 0-9, _"></label>
+    <label>${L('About the page')}<textarea id="pgabout" rows="3" maxlength="300"></textarea></label>
+    <label class="chip-btn" style="align-self:flex-start">${L('Page photo')}<input id="pgavatar" type="file" accept="image/*" hidden></label>
+    <button class="btn" data-a="createpage">${L('Create page')}</button></section>`;
+}
+
+/* ================== STORIES ================== */
+async function loadStories(){
+  const r=await sb.from('stories').select('id,image_url,caption,created_at,user_id,profiles!stories_user_fk(id,username,full_name,avatar_url,is_verified)')
+    .gt('created_at',new Date(Date.now()-864e5).toISOString()).order('created_at');
+  if(r.error)return; const g=new Map();
+  r.data.forEach(x=>{if(myBlocked.has(x.user_id))return;if(!g.has(x.user_id))g.set(x.user_id,{p:x.profiles,items:[]});g.get(x.user_id).items.push(x);});
+  const rank=x=>x.p.id===me.id?0:myFollowing.has(x.p.id)?1:2;
+  storyGroups=[...g.values()].sort((a,b)=>rank(a)-rank(b));
+  const box=$('#stories'); if(!box)return;
+  box.innerHTML=`<label class="st"><span class="ring add">＋</span><small>${L('Your story')}</small><input id="stf" type="file" accept="image/*" hidden></label>`
+    +storyGroups.map((x,i)=>`<button class="st" data-a="viewstory" data-i="${i}"><span class="ring">${av(x.p,52)}</span><small class="clip">${esc(x.p.id===me.id?L('You'):x.p.username)}</small></button>`).join('');
+}
+function showStory(gi,ii){
+  const g=storyGroups[gi]; if(!g)return closeStory();
+  const s=g.items[ii]; if(!s)return showStory(gi+1,0);
+  sv={gi,ii}; let el=$('#sv'); if(!el){el=document.createElement('div');el.id='sv';document.body.appendChild(el);}
+  el.innerHTML=`<div class="svb"><div class="svh">${av(g.p,36)}<b class="grow">${nm(g.p)}</b><time>${ago(s.created_at)}</time>
+    ${s.user_id===me.id?`<button data-a="delstory" data-id="${s.id}" aria-label="${L('Delete')}">🗑️</button>`:''}<button data-a="closestory" aria-label="${L('Close')}">✕</button></div>
+    <img class="si" src="${esc(s.image_url)}" alt=""><div class="svc">${esc(s.caption)}</div>
+    <button class="svn" data-a="nextstory" aria-label="${L('Next story')}"></button></div>`;
+  clearTimeout(svt); svt=setTimeout(()=>A.nextstory(),5000);
+}
+function closeStory(){clearTimeout(svt);$('#sv')?.remove();sv=null;}
+
+async function vPeople(m,v){
+  const f=v.mode==='followers', P='id,username,full_name,avatar_url,is_verified';
+  const {data}=ok(await sb.from('follows').select(f?`p:profiles!follows_follower_fk(${P})`:`p:profiles!follows_following_fk(${P})`).eq(f?'following_id':'follower_id',v.id));
+  m.innerHTML=backBar(f?L('Followers'):L('Following'))+(data.length?data.map(x=>personRow(x.p)).join(''):`<div class="empty">${L('Nobody here yet.')}</div>`);
+}
+
+/* ================== CHAT ================== */
+let gProfiles={}, curGroup=null;
+const fmt=n=>Math.floor(n/60)+':'+String(n%60).padStart(2,'0');
+const timeOf=x=>new Date(x.created_at).toLocaleTimeString(LOC(),{hour:'numeric',minute:'2-digit'});
+const voiceHtml=x=>`<button class="vm" data-a="playvoice" data-id="${x.id}" data-p="${esc(x.audio_path)}" aria-label="${L('Play voice message')}"><span class="pl">▶</span><span class="ps">⏸</span><span class="wv"></span><span>${fmt(x.audio_secs||0)}</span></button>`;
+const bubble=x=>{
+  const mine=x.sender_id===me.id, gp=gProfiles[x.sender_id];
+  const tag=(view.name==='group'&&!mine)?`<small class="sn">${esc(gp?.full_name||gp?.username||'')}</small>`:'';
+  return `<div class="bub ${mine?'me':''}">${tag}${x.audio_path?voiceHtml(x):esc(x.body)}<time>${timeOf(x)}</time></div>`;
+};
+function addBubble(x){const b=$('#msgs');if(!b)return;b.insertAdjacentHTML('beforeend',bubble(x));window.scrollTo(0,document.body.scrollHeight);}
+async function markRead(from){await sb.from('messages').update({read_at:new Date().toISOString()}).eq('sender_id',from).eq('receiver_id',me.id).is('read_at',null);refreshBadges();}
+
+const barInner=()=>`<input id="mi" placeholder="${L('Write a message…')}" maxlength="2000" autocomplete="off"><button class="ic" data-a="rec" aria-label="${L('Record voice message')}">🎙️</button><button class="btn sm" data-a="send">${L('Send')}</button>`;
+const recBar=()=>`<span class="recdot"></span><b id="rt">0:00</b><span class="grow muted">${L('Recording…')}</span><button class="btn ghost sm" data-a="reccancel">${L('Cancel')}</button><button class="btn sm" data-a="recsend">${L('Send')}</button>`;
+const restoreBar=()=>{const b=$('#cb');if(b)b.innerHTML=barInner();};
+
+/* ---- voice recording & playback ---- */
+const MIMES=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'];
+async function startRec(){
+  if(rec)return;
+  if(!navigator.mediaDevices||!window.MediaRecorder)throw new Error(L('Voice recording is not supported on this browser'));
+  const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+  const mime=MIMES.find(x=>MediaRecorder.isTypeSupported(x))||'';
+  const mr=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);
+  const r={mr,stream,chunks:[],start:Date.now(),mime:mr.mimeType||mime||'audio/webm',timer:null};
+  mr.ondataavailable=e=>{if(e.data&&e.data.size)r.chunks.push(e.data);};
+  mr.start(250); rec=r;
+  $('#cb').innerHTML=recBar();
+  r.timer=setInterval(()=>{const n=Math.floor((Date.now()-r.start)/1000);const el=$('#rt');if(el)el.textContent=fmt(n);
+    if(n>=120)A.recsend().catch(x=>toast(errMsg(x)));},250);
+}
+function abortRec(){
+  if(!rec)return; const r=rec; rec=null; clearInterval(r.timer);
+  try{r.mr.stop();}catch(e){} r.stream.getTracks().forEach(x=>x.stop());
+}
+async function finishRec(){
+  const r=rec; if(!r)return; rec=null; clearInterval(r.timer);
+  const blob=await new Promise(res=>{r.mr.onstop=()=>res(new Blob(r.chunks,{type:r.mime}));try{r.mr.stop();}catch(e){res(new Blob(r.chunks,{type:r.mime}));}});
+  r.stream.getTracks().forEach(x=>x.stop()); restoreBar();
+  const secs=Math.round((Date.now()-r.start)/1000);
+  if(secs<1||blob.size<800)return toast(L('Recording is too short'));
+  const ext=r.mime.includes('mp4')?'m4a':r.mime.includes('ogg')?'ogg':'webm';
+  const path=`${me.id}/${Date.now()}.${ext}`;
+  ok(await sb.storage.from('voice').upload(path,blob,{contentType:r.mime.split(';')[0]}));
+  const base={sender_id:me.id,body:'',audio_path:path,audio_secs:Math.min(secs,300)};
+  const row=view.name==='group'?{...base,group_id:view.id}:{...base,receiver_id:view.id};
+  addBubble(ok(await sb.from('messages').insert(row).select().single()).data);
+}
+async function playVoice(t){
+  const key=t.dataset.id;
+  if(audioEl&&audioKey===key){ if(audioEl.paused){audioEl.play();t.classList.add('on');}else{audioEl.pause();t.classList.remove('on');} return; }
+  if(audioEl){audioEl.pause();document.querySelectorAll('.vm.on').forEach(b=>b.classList.remove('on'));}
+  const {data,error}=await sb.storage.from('voice').createSignedUrl(t.dataset.p,3600); if(error)throw error;
+  const a=new Audio(data.signedUrl); audioEl=a; audioKey=key; t.classList.add('on');
+  a.onended=()=>{t.classList.remove('on');if(audioEl===a){audioEl=null;audioKey=null;}};
+  await a.play();
+}
+
+/* ---- chat list ---- */
+async function vChats(m){
+  const [dm,gmr,gu]=await Promise.all([
+    sb.from('messages').select('*').is('group_id',null).or(`sender_id.eq.${me.id},receiver_id.eq.${me.id}`).order('created_at',{ascending:false}).limit(300),
+    sb.from('group_members').select('chat_groups(id,name,owner_id)').eq('user_id',me.id).eq('status','active'),
+    sb.rpc('my_group_unread')]);
+  const ms=ok(dm).data, groups=(ok(gmr).data||[]).map(x=>x.chat_groups).filter(Boolean);
+  const gUnread=new Map((gu.data||[]).map(x=>[x.group_id,Number(x.n)]));
+  const map=new Map();
+  ms.forEach(x=>{const o=x.sender_id===me.id?x.receiver_id:x.sender_id; if(!map.has(o))map.set(o,{last:x,unread:0}); if(x.receiver_id===me.id&&!x.read_at)map.get(o).unread++;});
+  const ids=[...map.keys()].filter(i=>!myBlocked.has(i));
+  const ps=ids.length?ok(await sb.from('profiles').select(PSEL).in('id',ids)).data:[];
+  const gids=groups.map(g=>g.id);
+  const gl=gids.length?ok(await sb.from('messages').select('id,group_id,sender_id,body,audio_path,created_at').in('group_id',gids).order('created_at',{ascending:false}).limit(200)).data:[];
+  const lastG=new Map(); gl.forEach(x=>{if(!lastG.has(x.group_id))lastG.set(x.group_id,x);});
+  const pv=x=>(x.sender_id===me.id?L('You: '):'')+(x.audio_path?'🎙️ '+L('Voice message'):esc(x.body));
+  const rows=[];
+  ids.forEach(id=>{
+    const p=ps.find(x=>x.id===id), c=map.get(id); if(!p)return;
+    rows.push({t:new Date(c.last.created_at).getTime(),h:`<button class="item ${c.unread?'unread':''}" data-a="chat" data-id="${id}">${avo(p,48)}
+      <span class="grow"><b>${nm(p)}</b><small class="clip">${pv(c.last)}</small></span>
+      ${c.unread?`<span class="bd st">${bn(c.unread)}</span>`:''}</button>`});
+  });
+  groups.forEach(g=>{
+    const last=lastG.get(g.id), u=gUnread.get(g.id)||0;
+    rows.push({t:last?new Date(last.created_at).getTime():0,h:`<button class="item ${u?'unread':''}" data-a="group" data-id="${g.id}">${av({full_name:g.name},48)}
+      <span class="grow"><b>${esc(g.name)}</b><small class="clip">${last?pv(last):L('No messages yet.')}</small></span>
+      ${u?`<span class="bd st">${bn(u)}</span>`:''}</button>`});
+  });
+  rows.sort((a,b)=>b.t-a.t);
+  m.innerHTML=`<div class="bar"><h2 class="grow">${L('Messages')}</h2><button class="btn ghost sm" data-a="newgroup">＋ ${L('New group')}</button></div>`
+    +(rows.length?rows.map(r=>r.h).join(''):`<div class="empty">${L('No messages yet.')}<br>${L('Search for someone and start a chat from their profile.')}</div>`);
+}
+
+/* ---- one-to-one chat ---- */
+async function vRoom(m,v){
+  const o=ok(await sb.from('profiles').select(PSEL).eq('id',v.id).single()).data;
+  const ms=ok(await sb.from('messages').select('*').is('group_id',null)
+    .or(`and(sender_id.eq.${me.id},receiver_id.eq.${v.id}),and(sender_id.eq.${v.id},receiver_id.eq.${me.id})`)
+    .order('created_at',{ascending:false}).limit(100)).data.reverse();
+  m.innerHTML=`<div class="rhead"><button class="ic" data-a="back" aria-label="${L('Back')}">${svg('back')}</button>
+    <button class="who" data-a="profile" data-id="${o.id}">${avo(o,38)}<span><b>${nm(o)}</b><small data-st="${o.id}">${online.has(o.id)?L('Online'):L('Offline')}</small></span></button></div>
+    <div id="msgs">${ms.map(x=>bubble(x)).join('')}</div>
+    <div class="cbar" id="cb">${barInner()}</div>`;
+  window.scrollTo(0,document.body.scrollHeight);
+  markRead(v.id);
+}
+
+/* ---- group chat ---- */
+async function vGroup(m,v){
+  const g=ok(await sb.from('chat_groups').select('id,name,owner_id').eq('id',v.id).single()).data;
+  const [mem,ms]=await Promise.all([
+    sb.from('group_members').select('user_id,profiles!group_members_user_fk(id,username,full_name,avatar_url,is_verified)').eq('group_id',g.id).eq('status','active'),
+    sb.from('messages').select('*').eq('group_id',g.id).order('created_at',{ascending:false}).limit(100)]);
+  gProfiles={}; ok(mem).data.forEach(x=>{gProfiles[x.user_id]=x.profiles;}); curGroup=g;
+  m.innerHTML=`<div class="rhead"><button class="ic" data-a="back" aria-label="${L('Back')}">${svg('back')}</button>
+    <button class="who" data-a="groupinfo" data-id="${g.id}">${av({full_name:g.name},38)}<span><b>${esc(g.name)}</b><small>${L('{n} members',{n:bn(mem.data.length)})}</small></span></button></div>
+    <div id="msgs">${ok(ms).data.reverse().map(x=>bubble(x)).join('')}</div>
+    <div class="cbar" id="cb">${barInner()}</div>`;
+  window.scrollTo(0,document.body.scrollHeight);
+  sb.rpc('mark_group_read',{gid:g.id}).then(()=>refreshBadges());
+}
+async function vGroupInfo(m,v){
+  const g=ok(await sb.from('chat_groups').select('id,name,owner_id').eq('id',v.id).single()).data, owner=g.owner_id===me.id;
+  const mem=ok(await sb.from('group_members').select('user_id,status,profiles!group_members_user_fk(id,username,full_name,avatar_url,is_verified)').eq('group_id',g.id)).data;
+  const active=mem.filter(x=>x.status==='active'), pend=mem.filter(x=>x.status==='pending');
+  let addable=[];
+  if(owner&&myFollowing.size){
+    const inG=new Set(mem.map(x=>x.user_id)), ids=[...myFollowing].filter(i=>!inG.has(i)&&!myBlocked.has(i)).slice(0,50);
+    if(ids.length)addable=ok(await sb.from('profiles').select(PSEL).in('id',ids)).data;
+  }
+  const who=p=>`<button class="who" data-a="profile" data-id="${p.id}">${avo(p,42)}<span class="grow"><b>${nm(p)}${p.id===g.owner_id?`<span class="tag">${L('Admin')}</span>`:''}</b><small class="clip">@${esc(p.username)}</small></span></button>`;
+  m.innerHTML=`${backBar(g.name)}
+    ${owner&&pend.length?`<div class="bar"><h2>${L('Join requests')} (${bn(pend.length)})</h2></div>`+pend.map(x=>`<div class="item">${who(x.profiles)}
+      <button class="btn sm" data-a="approve" data-g="${g.id}" data-u="${x.user_id}">${L('Approve')}</button>
+      <button class="btn sm ghost" data-a="reject" data-g="${g.id}" data-u="${x.user_id}">${L('Reject')}</button></div>`).join(''):''}
+    <div class="bar"><h2>${L('Members')} (${bn(active.length)})</h2></div>
+    ${active.map(x=>`<div class="item">${who(x.profiles)}${owner&&x.user_id!==me.id?`<button class="btn sm ghost" data-a="removemember" data-g="${g.id}" data-u="${x.user_id}">${L('Remove')}</button>`:''}</div>`).join('')}
+    ${addable.length?`<div class="bar"><h2>${L('Add people')}</h2></div>`+addable.map(p=>`<div class="item">${who(p)}<button class="btn sm" data-a="addmember" data-g="${g.id}" data-u="${p.id}">${L('Add')}</button></div>`).join(''):''}
+    <div style="padding:16px">${owner?`<button class="btn danger" data-a="delgroup" data-id="${g.id}">${L('Delete group')}</button>`:`<button class="btn danger" data-a="leavegroup" data-id="${g.id}">${L('Leave group')}</button>`}</div>`;
+}
+async function vNewGroup(m){
+  const ids=[...myFollowing].filter(i=>!myBlocked.has(i)).slice(0,100);
+  const ps=ids.length?ok(await sb.from('profiles').select(PSEL).in('id',ids)).data:[];
+  m.innerHTML=`${backBar(L('New group'))}<section class="card form">
+    <label>${L('Group name')}<input id="gname" maxlength="50"></label>
+    <b>${L('Add people you follow')}</b>
+    ${ps.length?ps.map(p=>`<label class="pick"><input type="checkbox" class="gm" value="${p.id}">${av(p,36)}<span class="grow">${nm(p)}</span></label>`).join(''):`<div class="muted">${L('Follow some people first, or let them request to join.')}</div>`}
+    <button class="btn" data-a="creategroup">${L('Create group')}</button></section>`;
+}
+
+/* ================== NOTIFICATIONS / SETTINGS ================== */
+async function vNotifs(m){
+  const {data}=ok(await sb.from('notifications').select('id,type,kind,post_id,group_id,is_read,created_at,actor:profiles!notifications_actor_fk(id,username,full_name,avatar_url,is_verified),grp:chat_groups(id,name)').order('created_at',{ascending:false}).limit(50));
+  const txt=n=>n.type==='reaction'?L('reacted {r} to your post',{r:REACTS[n.kind]||''}):n.type==='comment'?L('commented on your post')
+    :n.type==='group_request'?L('wants to join your group {g}',{g:esc(n.grp?.name||'')}):n.type==='group_approved'?L('approved your request to join {g}',{g:esc(n.grp?.name||'')}):L('started following you');
+  const tgt=n=>n.type==='group_request'?['groupinfo',n.group_id]:n.type==='group_approved'?['group',n.group_id]:n.post_id?['open',n.post_id]:['profile',n.actor.id];
+  m.innerHTML=backBar(L('Notifications'))+(data.length?data.map(n=>{const [ta,ti]=tgt(n);return `<button class="item ${n.is_read?'':'unread'}" data-a="${ta}" data-id="${ti}">
+    ${av(n.actor,42)}<span class="grow"><b>${nm(n.actor)}</b> ${txt(n)}<br><time>${ago(n.created_at)}</time></span></button>`;}).join(''):`<div class="empty">${L('No notifications yet.')}</div>`);
+  if(data.some(n=>!n.is_read)){await sb.from('notifications').update({is_read:true}).eq('user_id',me.id).eq('is_read',false);refreshBadges();}
+}
+async function vSettings(m){
+  const vs=myProfile.is_verified
+    ?`<section class="card form"><b>${L('Blue verified')}</b><div>${BADGE} ${L('Your account has the verified badge. Everyone can see it.')}</div><button class="btn danger" data-a="unverify">${L('Turn off verified')}</button></section>`
+    :`<section class="card form"><b>${L('Get verified')}</b><label>${L('Verification code')}<input id="vc" autocomplete="off" autocapitalize="characters" placeholder="${L('Enter the code')}"></label><button class="btn" data-a="verify">${L('Get verified')}</button></section>`;
+  m.innerHTML=`${backBar(L('Settings'))}${vs}
+  <section class="card form"><b>${L('Profile')}</b>
+    <div class="row">${av(myProfile,64)}<label class="chip-btn">${L('Change photo')}<input id="sf" type="file" accept="image/*" hidden></label></div>
+    <label>${L('Name')}<input id="sn" maxlength="50" value="${esc(myProfile.full_name)}"></label>
+    <label>${L('Bio')}<textarea id="sbio" rows="3" maxlength="160">${esc(myProfile.bio)}</textarea></label>
+    <button class="btn" data-a="saveprofile">${L('Save changes')}</button></section>
+  <section class="card form"><b>${L('Theme')}</b><div class="seg"><button data-a="theme" data-k="light">${L('Light')}</button><button data-a="theme" data-k="dark">${L('Dark')}</button></div></section>
+  <section class="card form"><b>${L('Language')}</b><div class="seg"><button class="${lang==='en'?'on':''}" data-a="lang" data-k="en">English</button><button class="${lang==='bn'?'on':''}" data-a="lang" data-k="bn">বাংলা</button></div></section>
+  <section class="card form"><b>${L('Account')}</b><span class="muted">${esc(me.email)}</span><button class="btn danger" data-a="logout">${L('Log out')}</button></section>`;
+}
+
+/* ================== ACTIONS ================== */
+const A={
+  tab(t){
+    const k=t.dataset.k;
+    if(k==='compose'){
+      if(view.name==='home'){$('#pb')?.focus();window.scrollTo(0,0);return;}
+      stack=[];view={name:'home'};history.replaceState(null,'');return render().then(()=>$('#pb')?.focus());
+    }
+    stack=[];view={name:k};history.replaceState(null,'');return render();
+  },
+  back(){history.back();},
+  profile:t=>go('profile',{id:t.dataset.id}),
+  open:t=>go('post',{id:+t.dataset.id}),
+  chat:t=>go('room',{id:t.dataset.id}),
+  people:t=>go('people',{id:t.dataset.id,mode:t.dataset.mode}),
+  settings:()=>go('settings'),
+  notifs:()=>go('notifs'),
+  feedtab(t){feedTab=t.dataset.k;return render();},
+  stab(t){searchTab=t.dataset.k;return render();},
+  page:t=>go('page',{id:+t.dataset.id}),
+  newpage:()=>go('newpage'),
+  viewstory:t=>showStory(+t.dataset.i,0),
+  nextstory(){if(!sv)return;const g=storyGroups[sv.gi];if(sv.ii+1<g.items.length)showStory(sv.gi,sv.ii+1);else showStory(sv.gi+1,0);},
+  closestory:()=>closeStory(),
+  async delstory(t){ok(await sb.from('stories').delete().eq('id',t.dataset.id));closeStory();loadStories();},
+  async verify(t){
+    const code=$('#vc').value.trim(); if(!code)return toast(L('Enter the code'));
+    t.disabled=true;
+    try{
+      const {data,error}=await sb.rpc('redeem_verification',{code}); if(error)throw error;
+      if(!data){toast(L('Incorrect code'));return;}
+      myProfile.is_verified=true; toast(L('Blue verified is on')); render();
+    }finally{t.disabled=false;}
+  },
+  async unverify(){ok(await sb.rpc('remove_verification'));myProfile.is_verified=false;toast(L('Verified turned off'));render();},
+  async createpage(t){
+    const name=$('#pgname').value.trim(), handle=$('#pghandle').value.trim().toLowerCase(), about=$('#pgabout').value.trim();
+    if(!name)return toast(L('Enter a page name'));
+    if(!/^[a-z0-9_]{3,20}$/.test(handle))return toast(L('Username: use only a-z, 0-9 and _ (3-20 characters)'));
+    t.disabled=true;
+    try{
+      const f=$('#pgavatar').files[0]; const avatar_url=f?await upload('avatars',f):null;
+      const g=ok(await sb.from('pages').insert({owner_id:me.id,handle,name,about,avatar_url}).select('id,name,handle,avatar_url').single()).data;
+      myPages.push(g); view={name:'page',id:g.id}; render();
+    }finally{t.disabled=false;}
+  },
+  async pfollow(t){
+    const id=+t.dataset.id, f=t.dataset.f==='1';
+    if(f){ok(await sb.from('page_follows').delete().match({page_id:id,user_id:me.id}));myPageFollowing.delete(id);}
+    else{ok(await sb.from('page_follows').insert({page_id:id,user_id:me.id}));myPageFollowing.add(id);}
+    if(view.name==='page')render(); else t.outerHTML=pfollowBtn(id,!f);
+  },
+  editpost(t){
+    const p=posts.get(+t.dataset.id), box=$('#pt'+p.id); if(!box)return;
+    box.innerHTML=`<div class="edit"><textarea id="pe${p.id}" rows="3" maxlength="1000">${esc(p.body)}</textarea>
+      <div class="row"><button class="btn ghost sm" data-a="canceledit" data-id="${p.id}">${L('Cancel')}</button><button class="btn sm" data-a="savepost" data-id="${p.id}">${L('Save')}</button></div></div>`;
+  },
+  canceledit:t=>repaint(posts.get(+t.dataset.id)),
+  async savepost(t){
+    const p=posts.get(+t.dataset.id), body=$('#pe'+p.id).value.trim();
+    if(!body&&!p.image_url)return toast(L('A post cannot be empty'));
+    ok(await sb.from('posts').update({body}).eq('id',p.id)); p.body=body; repaint(p);
+  },
+  async delcomment(t){
+    if(!confirm(L('Delete this comment?')))return;
+    ok(await sb.from('comments').delete().eq('id',t.dataset.id)); $('#c'+t.dataset.id)?.remove();
+    const p=posts.get(+t.dataset.p); if(p){p.comments=[{count:Math.max(0,(p.comments?.[0]?.count||1)-1)}];repaint(p);}
+  },
+  async report(t){
+    const reason=(prompt(L('Why are you reporting this? Write briefly'))||'').trim(); if(!reason)return;
+    const row={reporter_id:me.id,reason:reason.slice(0,300)};
+    if(t.dataset.k==='post')row.post_id=+t.dataset.id; else row.reported_user_id=t.dataset.id;
+    ok(await sb.from('reports').insert(row)); toast(L('Report sent. Thank you'));
+  },
+  async block(t){
+    const id=t.dataset.id, b=t.dataset.b==='1';
+    if(b){
+      if(!confirm(L('If you block this person you will not see their posts and they cannot message you. Block?')))return;
+      ok(await sb.from('blocks').insert({blocker_id:me.id,blocked_id:id})); myBlocked.add(id);
+      await sb.from('follows').delete().match({follower_id:me.id,following_id:id}); myFollowing.delete(id);
+    }else{ok(await sb.from('blocks').delete().match({blocker_id:me.id,blocked_id:id}));myBlocked.delete(id);}
+    render();
+  },
+  theme:t=>setTheme(t.dataset.k),
+  lang:t=>setLang(t.dataset.k),
+  async logout(){ok(await sb.auth.signOut());},
+
+  async publish(t){
+    const body=$('#pb').value.trim(), f=$('#pf').files[0], page_id=+($('#pas')?.value||0)||null;
+    if(!body&&!f)return toast(L('Write something or add a photo/video'));
+    t.disabled=true;
+    try{
+      const image_url=f?await upload('posts',f):null, media_type=f&&f.type.startsWith('video/')?'video':'image';
+      const p=ok(await sb.from('posts').insert({user_id:me.id,body,image_url,media_type,page_id}).select(SEL).single()).data;
+      posts.set(p.id,p); $('#fe').innerHTML=''; $('#feed').insertAdjacentHTML('afterbegin',postCard(p));
+      $('#pb').value='';$('#pf').value='';$('#pv').hidden=true;$('#pvt').hidden=true;
+    }finally{t.disabled=false;}
+  },
+  async delpost(t){
+    if(!confirm(L('Delete this post?')))return;
+    ok(await sb.from('posts').delete().eq('id',t.dataset.id));
+    posts.delete(+t.dataset.id); if(view.name==='post')history.back(); else $('#p'+t.dataset.id)?.remove();
+  },
+  async react(t){
+    const p=posts.get(+t.dataset.id), k=t.dataset.k, mine=p.reactions.find(r=>r.user_id===me.id), prev=[...p.reactions];
+    if(mine&&mine.kind===k){p.reactions=p.reactions.filter(r=>r!==mine);}
+    else{p.reactions=p.reactions.filter(r=>r.user_id!==me.id);p.reactions.push({user_id:me.id,kind:k});}
+    repaint(p);
+    try{
+      if(mine&&mine.kind===k) ok(await sb.from('reactions').delete().match({post_id:p.id,user_id:me.id}));
+      else ok(await sb.from('reactions').upsert({post_id:p.id,user_id:me.id,kind:k}));
+    }catch(e){p.reactions=prev;repaint(p);throw e;}
+  },
+  async comment(t){
+    const i=$('#ci'), body=i.value.trim(); if(!body)return;
+    const c=ok(await sb.from('comments').insert({post_id:+t.dataset.id,user_id:me.id,body}).select('id,body,created_at,user_id,post_id,profiles!comments_user_fk(id,username,full_name,avatar_url,is_verified)').single()).data;
+    i.value=''; $('#ce')?.remove(); $('#cl').insertAdjacentHTML('beforeend',commentRow(c));
+    const p=posts.get(+t.dataset.id); if(p){p.comments=[{count:(p.comments?.[0]?.count||0)+1}];repaint(p);}
+  },
+  async follow(t){
+    const id=t.dataset.id, f=t.dataset.f==='1';
+    if(f){ok(await sb.from('follows').delete().match({follower_id:me.id,following_id:id}));myFollowing.delete(id);}
+    else{ok(await sb.from('follows').insert({follower_id:me.id,following_id:id}));myFollowing.add(id);}
+    if(view.name==='profile')render(); else t.outerHTML=followBtn(id,!f);
+  },
+  async send(){
+    const i=$('#mi'), body=i.value.trim(); if(!body)return; i.value='';
+    const row=view.name==='group'?{sender_id:me.id,group_id:view.id,body}:{sender_id:me.id,receiver_id:view.id,body};
+    const r=await sb.from('messages').insert(row).select().single();
+    if(r.error){i.value=body;throw r.error;} addBubble(r.data);
+  },
+  async rec(){
+    try{await startRec();}
+    catch(e){if(e&&(e.name==='NotAllowedError'||e.name==='SecurityError'))throw new Error(L('Microphone access was blocked. Allow it in your browser settings.'));throw e;}
+  },
+  reccancel(){if(rec){abortRec();restoreBar();}},
+  async recsend(){if(rec)await finishRec();},
+  playvoice:t=>playVoice(t),
+  group:t=>go('group',{id:+t.dataset.id}),
+  groupinfo:t=>go('groupinfo',{id:+t.dataset.id}),
+  newgroup:()=>go('newgroup'),
+  async creategroup(t){
+    const name=$('#gname').value.trim(); if(!name)return toast(L('Enter a group name'));
+    const picked=[...document.querySelectorAll('.gm')].filter(x=>x.checked).map(x=>x.value);
+    t.disabled=true;
+    try{
+      const g=ok(await sb.from('chat_groups').insert({name,owner_id:me.id}).select('id').single()).data;
+      if(picked.length)ok(await sb.from('group_members').insert(picked.map(u=>({group_id:g.id,user_id:u,status:'active'}))));
+      view={name:'group',id:g.id}; render();
+    }finally{t.disabled=false;}
+  },
+  async joingroup(t){
+    const id=+t.dataset.id; ok(await sb.from('group_members').insert({group_id:id,user_id:me.id,status:'pending'}));
+    toast(L('Request sent. The group admin has to approve it.')); t.outerHTML=reqBtn(id,'pending');
+  },
+  async cancelreq(t){
+    const id=+t.dataset.id; ok(await sb.from('group_members').delete().match({group_id:id,user_id:me.id})); t.outerHTML=reqBtn(id,null);
+  },
+  async approve(t){ok(await sb.rpc('approve_group_member',{gid:+t.dataset.g,uid:t.dataset.u}));render();},
+  async reject(t){ok(await sb.from('group_members').delete().match({group_id:+t.dataset.g,user_id:t.dataset.u}));render();},
+  async removemember(t){
+    if(!confirm(L('Remove this member?')))return;
+    ok(await sb.from('group_members').delete().match({group_id:+t.dataset.g,user_id:t.dataset.u}));render();
+  },
+  async addmember(t){ok(await sb.from('group_members').insert({group_id:+t.dataset.g,user_id:t.dataset.u,status:'active'}));render();},
+  async leavegroup(t){
+    if(!confirm(L('Leave this group?')))return;
+    ok(await sb.from('group_members').delete().match({group_id:+t.dataset.id,user_id:me.id}));
+    stack=[];view={name:'chats'};history.replaceState(null,'');render();refreshBadges();
+  },
+  async delgroup(t){
+    if(!confirm(L('Delete this group for everyone?')))return;
+    ok(await sb.from('chat_groups').delete().eq('id',+t.dataset.id));
+    stack=[];view={name:'chats'};history.replaceState(null,'');render();
+  },
+  seclose:()=>closeStoryEditor(),
+  seemoji(t){se.items.push({type:'emoji',ch:t.dataset.e,x:.5,y:.45,size:.16});se.sel=se.items.length-1;seRender();},
+  seplus(){const o=se.items[se.sel];if(o){o.size=Math.min(.7,o.size*1.2);seRender();}},
+  seminus(){const o=se.items[se.sel];if(o){o.size=Math.max(.03,o.size/1.2);seRender();}},
+  sedel(){
+    const o=se.items[se.sel]; if(!o)return;
+    if(o.type==='text'){const ti=$('#setext');if(ti)ti.value='';}
+    se.items.splice(se.sel,1);se.sel=null;seRender();
+  },
+  async seshare(t){
+    if(!se||se.busy)return; se.busy=true; t.disabled=true;
+    try{
+      const blob=await seExport(), path=`${me.id}/${Date.now()}.jpg`;
+      ok(await sb.storage.from('posts').upload(path,blob,{contentType:'image/jpeg'}));
+      const image_url=sb.storage.from('posts').getPublicUrl(path).data.publicUrl;
+      ok(await sb.from('stories').insert({user_id:me.id,image_url,caption:''}));
+      closeStoryEditor(); toast(L('Story posted')); loadStories();
+    }finally{if(se)se.busy=false;t.disabled=false;}
+  },
+  async saveprofile(t){
+    t.disabled=true;
+    try{
+      let avatar_url=myProfile.avatar_url; const f=$('#sf').files[0]; if(f)avatar_url=await upload('avatars',f);
+      myProfile=ok(await sb.from('profiles').update({full_name:$('#sn').value.trim(),bio:$('#sbio').value.trim(),avatar_url}).eq('id',me.id).select().single()).data;
+      toast(L('Saved')); render();
+    }finally{t.disabled=false;}
+  }
+};
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a]'); if(!t||!A[t.dataset.a])return;
+  (async()=>A[t.dataset.a](t,e))().catch(err=>{console.error(err);toast(errMsg(err));});
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='pf'){const f=t.files[0],pv=$('#pv'),tx=$('#pvt');pv.hidden=true;tx.hidden=true;
+    if(f&&f.type.startsWith('image/')){pv.src=URL.createObjectURL(f);pv.hidden=false;}
+    else if(f){tx.textContent=L('Video selected: ')+f.name;tx.hidden=false;}}
+  if(t.id==='stf'&&t.files[0]){openStoryEditor(t.files[0]);t.value='';}
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&e.target.id==='vc'){e.preventDefault();const b=$('[data-a=verify]');if(b)A.verify(b).catch(x=>toast(errMsg(x)));return;}
+  if(e.key!=='Enter'||e.shiftKey)return;
+  if(e.target.id==='mi'){e.preventDefault();A.send().catch(x=>toast(x.message));}
+  if(e.target.id==='ci'){e.preventDefault();const b=$('[data-a=comment]');if(b)A.comment(b).catch(x=>toast(x.message));}
+});
+
+/* ================== STORY EDITOR ================== */
+const EMOJIS=['😀','😂','😍','🔥','💪','🏋️','🏃','🥇','🏆','❤️','👏','🙌','😎','🥳','💯','✨','⚡','🍎','💧','🧘','🚴','⚽','🎯','🌟','😅','🤩','🙏','👍'];
+function openStoryEditor(file){
+  closeStoryEditor();
+  se={url:URL.createObjectURL(file),items:[],sel:null,drag:null,busy:false};
+  const el=document.createElement('div'); el.id='se';
+  el.innerHTML=`<div class="seb"><div class="seh"><button data-a="seclose" aria-label="${L('Close')}">✕</button><b>${L('New story')}</b><button class="btn sm" data-a="seshare">${L('Share story')}</button></div>
+    <div class="sest"><div id="stage" class="stage"><img id="seimg" src="${se.url}" alt=""><div id="seitems"></div></div></div>
+    <div class="setools"><div id="sesel" class="selbar" hidden><button data-a="seminus" aria-label="${L('Smaller')}">−</button><button data-a="seplus" aria-label="${L('Bigger')}">＋</button><button data-a="sedel" aria-label="${L('Delete')}">🗑️</button></div>
+    <input id="setext" maxlength="80" placeholder="${L('Add a caption…')}" autocomplete="off">
+    <div class="emojis">${EMOJIS.map(e=>`<button data-a="seemoji" data-e="${e}">${e}</button>`).join('')}</div></div></div>`;
+  document.body.appendChild(el);
+  $('#seimg').onload=seRender;
+}
+function closeStoryEditor(){$('#se')?.remove();if(se&&se.url)URL.revokeObjectURL(se.url);se=null;}
+function seRender(){
+  const st=$('#stage'), box=$('#seitems'); if(!se||!st||!box)return; const W=st.clientWidth;
+  box.innerHTML=se.items.map((it,i)=>`<div class="sei ${it.type==='text'?'txt':''} ${se.sel===i?'on':''}" data-i="${i}" style="left:${it.x*100}%;top:${it.y*100}%;font-size:${Math.round(it.size*W)}px">${esc(it.type==='text'?it.text:it.ch)}</div>`).join('');
+  const sb2=$('#sesel'); if(sb2)sb2.hidden=se.sel==null;
+}
+function seSelect(i){se.sel=i;document.querySelectorAll('.sei').forEach(el=>el.classList.toggle('on',+el.dataset.i===i));const sb2=$('#sesel');if(sb2)sb2.hidden=i==null;}
+document.addEventListener('pointerdown',e=>{
+  if(!se)return; const it=e.target.closest?e.target.closest('.sei'):null;
+  if(!it){if(e.target.closest&&e.target.closest('#stage'))seSelect(null);return;}
+  e.preventDefault(); const i=+it.dataset.i; se.drag=i; seSelect(i);
+});
+document.addEventListener('pointermove',e=>{
+  if(!se||se.drag==null)return; const st=$('#stage'); if(!st)return; const r=st.getBoundingClientRect();
+  const x=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)), y=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height));
+  const o=se.items[se.drag]; if(!o)return; o.x=x;o.y=y;
+  const el=$(`.sei[data-i="${se.drag}"]`); if(el){el.style.left=(x*100)+'%';el.style.top=(y*100)+'%';}
+});
+const seEndDrag=()=>{if(se)se.drag=null;};
+document.addEventListener('pointerup',seEndDrag); document.addEventListener('pointercancel',seEndDrag);
+window.addEventListener('resize',()=>{if(se)seRender();});
+document.addEventListener('input',e=>{
+  if(e.target.id!=='setext'||!se)return;
+  const v=e.target.value, i=se.items.findIndex(x=>x.type==='text');
+  if(!v.trim()){if(i>=0){se.items.splice(i,1);se.sel=null;}}
+  else if(i>=0)se.items[i].text=v;
+  else{se.items.push({type:'text',text:v,x:.5,y:.82,size:.06});}
+  seRender();
+});
+function wrapText(g,text,maxW){
+  const words=text.split(/\s+/).filter(Boolean), lines=[]; let cur='';
+  for(const w of words){const tl=cur?cur+' '+w:w; if(!cur||g.measureText(tl).width<=maxW)cur=tl; else{lines.push(cur);cur=w;}}
+  if(cur)lines.push(cur); return lines;
+}
+function seExport(){
+  const img=$('#seimg'), nw=img.naturalWidth, nh=img.naturalHeight, k=Math.min(1,1280/Math.max(nw,nh));
+  const W=Math.round(nw*k), H=Math.round(nh*k), c=document.createElement('canvas'); c.width=W; c.height=H;
+  const g=c.getContext('2d'); g.drawImage(img,0,0,W,H);
+  for(const it of se.items){
+    const px=it.size*W, cx=it.x*W, cy=it.y*H;
+    if(it.type==='emoji'){
+      g.font=`${px}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",system-ui,sans-serif`;
+      g.textAlign='center'; g.textBaseline='middle'; g.fillText(it.ch,cx,cy);
+    }else{
+      g.font=`700 ${px}px "Hind Siliguri",system-ui,sans-serif`; g.textAlign='center'; g.textBaseline='middle';
+      const padX=px*.6, padY=px*.3, lh=px*1.25, lines=wrapText(g,it.text,W*.85-2*padX);
+      const bw=Math.min(W*.85,Math.max(...lines.map(l=>g.measureText(l).width))+2*padX), bh=lines.length*lh+2*padY, r=px*.5;
+      const x0=cx-bw/2, y0=cy-bh/2;
+      g.fillStyle='rgba(0,0,0,.55)'; g.beginPath();
+      g.moveTo(x0+r,y0); g.arcTo(x0+bw,y0,x0+bw,y0+bh,r); g.arcTo(x0+bw,y0+bh,x0,y0+bh,r); g.arcTo(x0,y0+bh,x0,y0,r); g.arcTo(x0,y0,x0+bw,y0,r); g.closePath(); g.fill();
+      g.fillStyle='#fff'; lines.forEach((l,n)=>g.fillText(l,cx,y0+padY+lh*(n+.5)));
+    }
+  }
+  return new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(new Error('export failed')),'image/jpeg',.9));
+}
+
+/* ================== START ================== */
+(async()=>{
+  if(cfg.url.startsWith('PASTE')){app.innerHTML='<div class="empty">Paste your Supabase URL and anon key at the top of index.html.</div>';return;}
+  const {data:{session}}=await sb.auth.getSession();
+  session?boot(session.user):authScreen();
+  sb.auth.onAuthStateChange((ev,s)=>{
+    if(ev==='SIGNED_IN'&&s&&(!me||me.id!==s.user.id))boot(s.user);
+    if(ev==='SIGNED_OUT'){cleanup();authScreen();}
+    if(ev==='PASSWORD_RECOVERY')setTimeout(async()=>{
+      const pw=prompt(L('Enter a new password (min 6 characters)'));
+      if(pw&&pw.length>=6){const {error}=await sb.auth.updateUser({password:pw});toast(error?errMsg(error):L('Password changed'));}
+    },600);
+  });
+  if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</body>
+</html>
